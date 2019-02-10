@@ -14,6 +14,12 @@ public class AppDao extends HibernateDaoSupport {
 		list = getHibernateTemplate().find("from Category");
 		return list;
 	}
+	
+	public List<Product> getAllProducts(){
+		List<Product> list = null;
+		list = getHibernateTemplate().find("from Product");
+		return list;
+	}
 
 	public void insertCategory(Category category) {
 		getHibernateTemplate().save(category);
