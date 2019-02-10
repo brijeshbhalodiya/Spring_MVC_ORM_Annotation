@@ -41,14 +41,14 @@ List<Product> list = dao.getAllProducts();
 		<td><%=p.getQuantity() %></td>
 		<td><%=c.getCategory_name() %></td>
 		<td>
-			<form name="edit" method="post" action="update">
-				<input type="hidden" name="eid" value="<%=p.getPid()%>">
+			<form name="edit" method="post" action="edit">
+				<input type="hidden" name="pid" value="<%=p.getPid()%>">
 				<input type="submit" name="action" value="Edit">
 			</form>
 		</td>
 		<td>
 			<form name="delete" method="post" action="delete">
-				<input type="hidden" name="eid" value="<%=p.getPid()%>">
+				<input type="hidden" name="pid" value="<%=p.getPid()%>">
 				<input type="submit" name="action" value="Delete">
 			</form>
 		</td>

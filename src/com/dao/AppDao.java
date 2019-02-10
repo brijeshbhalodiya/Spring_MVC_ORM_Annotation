@@ -31,8 +31,24 @@ public class AppDao extends HibernateDaoSupport {
 		return c;
 	}
 
-	public void insertProduct(Product p) {
+	public void saveProduct(Product p) {
 		getHibernateTemplate().save(p);
 	}
+
+	public Product getProductById(int pid) {
+		Product p=null;
+		p = getHibernateTemplate().get(Product.class, pid);
+		return p;
+	}
+
+	public void updateProduct(Product p) {
+		getHibernateTemplate().update(p);
+	}
+
+	public void deleteProduct(Product p) {
+		getHibernateTemplate().delete(p);
+	}
+
+
 	
 }

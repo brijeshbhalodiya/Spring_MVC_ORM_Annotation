@@ -45,7 +45,7 @@ public class AppController {
 		p.setPrice(price);
 		p.setQuantity(quantity);
 		p.setCategory_id(c);
-		dao.insertProduct(p);
+		dao.saveProduct(p);
 		return "redirect:Products";
 	}
 
@@ -63,6 +63,46 @@ public class AppController {
 		AppDao dao = (AppDao)context.getBean("AppDao");
 		dao.insertCategory(category);
 		return "redirect:addProduct";
+	}
+	
+	@RequestMapping(value="/edit", method=RequestMethod.POST)
+	public String editProduct(HttpServletRequest request,HttpServletResponse response, Model m) {
+		int pid = Integer.parseInt(request.getParameter("pid"));
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		AppDao dao = (AppDao)context.getBean("AppDao");
+		Product p = dao.getProductById(pid);
+		request.setAttribute("p", p);
+		return "update";
+	}
+	
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public String updateProduct(HttpServletRequest request,HttpServletResponse response) {
+		int pid = Integer.parseInt(request.getParameter("pid"));
+		double price = Double.parseDouble(request.getParameter("price"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String pname = request.getParameter("pname");
+		int catId = Integer.parseInt(request.getParameter("catId"));
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		AppDao dao = (AppDao)context.getBean("AppDao");
+		Category c = dao.getCategoryById(catId);
+		Product p = dao.getProductById(pid);
+		p.setPrice(price);
+		p.setProduct_name(pname);
+		p.setCategory_id(c);
+		p.setQuantity(quantity);
+		dao.updateProduct(p);
+		return "redirect:Products";
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public String deleteProduct(HttpServletRequest request,HttpServletResponse response) {
+		int pid = Integer.parseInt(request.getParameter("pid"));
+		ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		AppDao dao = (AppDao)context.getBean("AppDao");
+		Product p = dao.getProductById(pid);
+		dao.deleteProduct(p);
+		return "redirect:Products";
 	}
 	
 	@RequestMapping(value="/Products", method=RequestMethod.GET)

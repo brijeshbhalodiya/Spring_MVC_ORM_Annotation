@@ -19,7 +19,7 @@ public class Product {
 	private double price;
 	private String product_name;
 	
-	@Autowired
+	
 	private Category category_id;
 
 	@Id
